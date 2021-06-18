@@ -38,7 +38,7 @@ describe('demo routes', () => {
     });
 
     const res = await request(app).get('/api/v1/orders');
-    console.log(res.body);
+  
     expect(res.body).toEqual([order1, order2, order3]);
   });
 
