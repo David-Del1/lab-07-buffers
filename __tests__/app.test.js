@@ -42,4 +42,25 @@ describe('demo routes', () => {
     expect(res.body).toEqual([order1, order2, order3]);
   });
 
+  it.skip('Updates an order via PUT', async () => {
+    const order = await Order.insert({
+      quantity: 10
+    });
+
+    order.quantity = 5;
+
+    const res = await request(app).put(`/api/v1/orders/${order.id}`)
+      .send(order);
+    expect(res.body).toEqual(order);
+  });
+
+  it('Deletes an order by id via DELETE', async () => {
+    const order = await Order.insert({
+      quantity: 10
+    });
+
+    const res = await request(app).delete(`/api/v1/orders/${order.id}`);
+  
+    expect(res.body).toEqual(order);
+  });
 });
