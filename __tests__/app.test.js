@@ -7,4 +7,14 @@ describe('demo routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
+
+  it('creates a new order in our databse and sends a text message', async () => {
+    const res = await request(app)
+      .post('/api/v1/orders')
+      .send({ quantity: 10 });
+
+    expect(res.body).toEqual({ id: '1', quantity: 10 });
+  });
+
+  
 });
