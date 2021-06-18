@@ -17,13 +17,29 @@ describe('demo routes', () => {
     expect(res.body).toEqual({ id: '1', quantity: 10 });
   });
 
-  it('Selects and order by id via GET', async () => {
+  it.skip('Selects an order by id via GET', async () => {
     const order = await Order.insert({ quantity: 5 });
     return request(app)
       .get(`/api/v1/orders/${order.id}`)
       .then(res => {
         expect(res.body).toEqual(order);
       });
+  });
+
+  it.skip('Selects all orders via GET', async () => {
+    const order1 = await Order.insert({
+      quantity: 10
+    });
+    const order2 = await Order.insert({
+      quantity: 15
+    });
+    const order3 = await Order.insert({
+      quantity: 20
+    });
+
+    const res = await request(app).get('/api/v1/orders');
+    console.log(res.body);
+    expect(res.body).toEqual([order1, order2, order3]);
   });
 
 });
